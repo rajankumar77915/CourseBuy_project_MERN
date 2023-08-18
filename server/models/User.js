@@ -11,7 +11,7 @@ const userSchema=new mongoose.Schema({
         require:true,
         trim:true
     },
-    eamil:{
+    email:{
         type:String,
         require:true,
         trim:true
@@ -28,12 +28,12 @@ const userSchema=new mongoose.Schema({
     additionalDetails:{
         type:mongoose.Schema.ObjectId,
         require:true,
-        ref:"profile"
+        ref:"Profile"
     },
 
     Courses:[{
         type:mongoose.Schema.ObjectId,
-        ref:"Courses"
+        ref:"Course"
     }],
     Image:{
         type:String,
@@ -47,3 +47,5 @@ const userSchema=new mongoose.Schema({
 
 
 module.exports=mongoose.model("User",userSchema);
+
+

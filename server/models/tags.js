@@ -1,3 +1,5 @@
+//only admin can add the tag
+
 const { default: mongoose } = require("mongoose");
 
 const TagsSchema=new mongoose.Schema({
@@ -8,10 +10,10 @@ const TagsSchema=new mongoose.Schema({
    decribtion:{
     type:String
    },
-   course:{
+   course: [{
     type:mongoose.Schema.Types.ObjectId ,
     ref:"Course"
-   }
+   }]
 
 })
 

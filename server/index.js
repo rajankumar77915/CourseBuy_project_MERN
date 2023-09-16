@@ -20,3 +20,5 @@ app.use(fileupload({
     useTempFiles: true,
     tempFileDir: "D:\mongo+express\express6\CourseBuy_project_MERN\server\tempFile",
 }));
+
+// https://sjinnovation.com/flutter-login-and-registration-using-firebase

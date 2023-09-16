@@ -8,7 +8,7 @@ exports.CreateSubSection=async (req,res)=>{
         const {sectionId,title,timeDuration,description}=req.body;
         const videoFile =req.file.videoFile;
 
-        
+        //validation subsection fields
         if(!title || !timeDuration || description || !videoFile){
             return res.status(404).json({
                 sucess :false,
@@ -22,7 +22,7 @@ exports.CreateSubSection=async (req,res)=>{
         //create sub-section
         const newSubsection=await Subsection.create({title,timeDuration,description,videoUrl:uploadDetail.secure_url})
 
-        //update secion
+        //update section
         const updatesection=await SubSection.findByIdAndUpdate({_id:sectionId},{$push:{subsection: newSubsection._id}} ,{new:true});
         return res.status(200).json({
             sucess:true,

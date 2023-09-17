@@ -6,10 +6,9 @@ const router = express.Router()
 
 // Course Controllers Import
 const {
-  createCourse,
   getAllCourses,
   getCourseDetails,
-  CreateCourse,
+  createCourse,
 } = require("../controllers/Course")
 
 
@@ -42,14 +41,14 @@ const {
 } = require("../controllers/RatingAndReview")
 
 // Importing Middlewares
-const { auth, isInstructor, isStudent, isAdmin } = require("../middleware/auth")
+const { auth, isInstructor, isStudent, isAdmin } = require("../middlewares/auth")
 
 // ********************************************************************************************************
 //                                      Course routes
 // ********************************************************************************************************
 
 // Courses can Only be Created by Instructors
-router.post("/createCourse", auth, isInstructor, CreateCourse)
+router.post("/createCourse", auth, isInstructor, createCourse)
 //Add a Section to a Course
 router.post("/addSection", auth, isInstructor, CreateSection)
 // Update a Section
@@ -61,7 +60,7 @@ router.post("/updateSubSection", auth, isInstructor, UpdateSubSection)
 // Delete Sub Section
 router.post("/deleteSubSection", auth, isInstructor, DeleteSubSection)
 // Add a Sub Section to a Section
-router.post("/addSubSection", auth, isInstructor, createSubSection)
+router.post("/addSubSection", auth, isInstructor, CreateSubSection)
 // Get all Registered Courses
 router.get("/getAllCourses", getAllCourses)
 // Get Details for a Specific Courses
@@ -81,6 +80,6 @@ router.post("/getCategoryPageDetails", categoryPageDetails)
 // ********************************************************************************************************
 router.post("/createRating", auth, isStudent, createRating)
 router.get("/getAverageRating", getAverageRating)
-router.get("/getReviews", getAllRatingReview)
+router.get("/getReviews", getAllRating);
 
 module.exports = router

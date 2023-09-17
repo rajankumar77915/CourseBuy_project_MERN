@@ -31,23 +31,31 @@ app.use(fileupload({
     tempFileDir: "D:\mongo+express\express6\CourseBuy_project_MERN\server\tempFile",
 }));
 cloudinaryConnect();
+
 //version:1
 app.use("api/v1/auth",userRoutes);
 app.use("api/v1/profile",profileRoutes);
 app.use("api/v1/payment",paymentRoutes);
 app.use("api/v1/course",courseRoutes);
 
+
+// router.get('/', (req, res) => {
+//     // Your route logic here
+//     res.send("kk");
+//   });
+
 const PORT=process.env.PORT;
 app.listen(PORT,()=>{
     console.log(`at ${PORT}`);
 })
 
-app.get("/",(req,res)=>{
-    return res.json({
-        sucess:true,
-    message:"your server is running up and running..."
-    })
-})
+// app.get("/",(req,res)=>{
+//     return res.json({
+//         sucess:true,
+//     message:"your server is running up and running..."
+//     })
+// })
 
+  
 
  

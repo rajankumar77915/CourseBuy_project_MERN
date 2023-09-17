@@ -54,7 +54,7 @@ exports.createRating = async (req, res) => {
             success:true,
             message:"Rating and Review created Successfully",
             ratingReview,
-        })
+        }) 
     }
     catch(error) {
         console.log(error);

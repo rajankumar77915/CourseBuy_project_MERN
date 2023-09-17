@@ -1,8 +1,8 @@
-//only admin can add the tag
+//only admin can add the tag/category
 
 const { default: mongoose } = require("mongoose");
 
-const TagsSchema=new mongoose.Schema({
+const CategorySchema=new mongoose.Schema({
    name:{
     type:String,
     require:true
@@ -17,4 +17,4 @@ const TagsSchema=new mongoose.Schema({
 
 })
 
-module.exports=mongoose.model("Tags",TagsSchema);
+module.exports=mongoose.model("Category",CategorySchema);

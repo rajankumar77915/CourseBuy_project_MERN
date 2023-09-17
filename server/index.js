@@ -1,24 +1,53 @@
 const express=require("express")
 const app=express()
-const {routes}=require("./routes/routes")
-require("./config/databse").dbConnection();
-require("dotenv").config();
+
+
+const courseRoutes=require("./routes/Course")
+const paymentRoutes=require("./routes/Payments")
+const profileRoutes=require("./routes/Profile")
+const userRoutes=require("./routes/User")
+
+
+const {dbConnection}=require("./config/databse");
+const cookieParser=require("cookie-parser")
+const cors=require("cors")//use to entertaint frontend
+const {cloudinaryConnect}=require("./config/cloudinary")
+require("dotenv").config(); 
 const fileupload = require("express-fileupload");
 
 
 //middleware to pass jsong request body
 app.use(express.json());
-//version:1
-app.use("api/v1",routes);
-
-const PORT=process.env.PORT;
-app.listen(PORT,()=>{
-    console.log(`at ${PORT}`);
- })
+app.use(cookieParser());
+app.use(
+        cors({
+         origin:"http//localhost:3000",
+          credentials:true,
+        })
+)
 
 app.use(fileupload({
     useTempFiles: true,
     tempFileDir: "D:\mongo+express\express6\CourseBuy_project_MERN\server\tempFile",
 }));
+cloudinaryConnect();
+//version:1
+app.use("api/v1/auth",userRoutes);
+app.use("api/v1/profile",profileRoutes);
+app.use("api/v1/payment",paymentRoutes);
+app.use("api/v1/course",courseRoutes);
 
-// https://sjinnovation.com/flutter-login-and-registration-using-firebase
+const PORT=process.env.PORT;
+app.listen(PORT,()=>{
+    console.log(`at ${PORT}`);
+})
+
+app.get("/",(req,res)=>{
+    return res.json({
+        sucess:true,
+    message:"your server is running up and running..."
+    })
+})
+
+
+ 

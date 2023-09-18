@@ -35,14 +35,20 @@ const userSchema=new mongoose.Schema({
         type:mongoose.Schema.ObjectId,
         ref:"Course"
     }],
-    Image:{
+    image:{
         type:String,
         require:true
     },
     CourseProgress:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"CourseProgress"
-    }]
+    }],
+    token:{
+        type:String
+    },
+    resetPasswordExpires:{
+        type:Date
+    }
 })
 
 

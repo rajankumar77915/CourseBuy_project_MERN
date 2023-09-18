@@ -4,7 +4,7 @@ const { uploadImageToCloudinary } = require("../utils/uploadImageCloudinary");
 // Method for updating a profile
 exports.updateProfile = async (req, res) => {
 	try {
-		const { dateOfBirth = "", about = "", contactNumber } = req.body;
+		const { dateOfBirth = "", about = "",gender="", contactNumber } = req.body;
 		const id = req.user.id;
 
 		// Find the profile by id
@@ -15,6 +15,7 @@ exports.updateProfile = async (req, res) => {
 		profile.dateOfBirth = dateOfBirth;
 		profile.about = about;
 		profile.contactNumber = contactNumber;
+		profile.gender=gender
 
 		// Save the updated profile
 		await profile.save();
@@ -35,8 +36,9 @@ exports.updateProfile = async (req, res) => {
 
 exports.deleteAccount = async (req, res) => {
 	try {
-		const id = req.user.id;
-		const user = await User.findById({ _id: id });
+			
+		const id =  req.user.id;
+		const user = await User.findById(  id );
 		if (!user) {
 			return res.status(404).json({
 				success: false,
@@ -44,10 +46,10 @@ exports.deleteAccount = async (req, res) => {
 			});
 		}
 		// Delete Assosiated Profile with the User
-		await Profile.findByIdAndDelete({ _id: user.userDetails });
+		await Profile.findByIdAndDelete({ _id: user.additionalDetails.toString()});
 		// TODO: Unenroll User From All the Enrolled Courses
 		// Now Delete User
-		await user.findByIdAndDelete({ _id: id });
+		await User.deleteOne({ _id: id });
 		res.status(200).json({
 			success: true,
 			message: "User deleted successfully",

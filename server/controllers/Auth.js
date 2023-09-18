@@ -210,9 +210,13 @@ exports.sendotp = async (req, res) => {
 			otp = otpGenerator.generate(6, {
 				upperCaseAlphabets: false,
 			});
+			result = await OTP.findOne({ otp: otp });
 		}
 		const otpPayload = { email, otp };
-		const otpBody = await OTP.create(otpPayload);
+		// const otpBody = await OTP.create(otpPayload);
+		const otpBody = new OTP(otpPayload);
+		await otpBody.save();
+
 		console.log("OTP Body", otpBody);
 		res.status(200).json({
 			success: true,
@@ -266,7 +270,7 @@ exports.changePassword = async (req, res) => {
 		// Send notification email
 		try {
 			const emailResponse = await mailSender(
-				updatedUserDetails.email,
+				updatedUserDetails.email,"CourseWave password changed",
 				passwordUpdated(
 					updatedUserDetails.email,
 					`Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`

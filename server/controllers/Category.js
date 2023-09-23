@@ -13,7 +13,6 @@ exports.createCategory = async (req, res) => {
 			name: name,
 			description: description,
 		});
-		console.log(CategorysDetails);
 		return res.status(200).json({
 			success: true,
 			message: "Categorys Created Successfully",
@@ -50,7 +49,8 @@ exports.categoryPageDetails = async (req, res) => {
     //get categoryId
     const { categoryId } = req.body;
     // get Courses for specified courseID
-    const selectedCategory = await Category.findById({ categoryId }).populate({ path: "course", select: "studentEnrolled" }).exec();
+    const selectedCategory = await Category.findById({ _id:categoryId }).populate({ path: "course", select: "studentEnrolled" }).exec();
+    console.log("----------------------------------------------")
     // validation
     if (!selectedCategory) {
         return res.status(404).json({
@@ -58,13 +58,12 @@ exports.categoryPageDetails = async (req, res) => {
             message: "category not found"
         })
     }
-
     // get corses diffrent courses
     const differentCategory = await Category.find({
         _id: { $ne: categoryId },
     }).populate("course").exec();
     // get top 10 selling courses
-    const topSellingCourse = await Category.aggregate(
+    const topSellingCourse = await Category.aggregate([
         {
             $match: { _id: categoryId }
         },
@@ -77,7 +76,26 @@ exports.categoryPageDetails = async (req, res) => {
         {
             $limit: 10
         },
-    ).populate({ path: "course", select: "instructor ratingAndReview studentEnrolled" }).exec();
+        {
+            $lookup: {
+                from: "courses", // Replace with the actual name of your "courses" collection
+                localField: "course", // Field in the current collection
+                foreignField: "_id",   // Field in the "courses" collection
+                as: "courseData"       // Alias for the joined data
+            }
+        },
+        {
+            $unwind: "$courseData"
+        },
+        {
+            $project: {
+                "course.instructor": "$courseData.instructor",
+                "course.ratingAndReview": "$courseData.ratingAndReview",
+                "course.studentEnrolled": "$courseData.studentEnrolled"
+            }
+        }
+    ]).exec();
+    
 
     return res.status(200).json({
         status:true,

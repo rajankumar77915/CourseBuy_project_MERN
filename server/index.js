@@ -25,7 +25,7 @@ app.use(cors({
 
 app.use(fileupload({
     useTempFiles: true,
-    tempFileDir: "D:\mongo+express\express6\CourseBuy_project_MERN\server\tempFile",
+    tempFileDir: "d:/mongo+express/express6/CourseBuy_project_MERN/server/tempFile/",
 }));
 cloudinaryConnect();
 dbConnection()

@@ -7,7 +7,7 @@ const CategorySchema=new mongoose.Schema({
     type:String,
     require:true
    },
-   decribtion:{
+   description:{
     type:String
    },
    course: [{

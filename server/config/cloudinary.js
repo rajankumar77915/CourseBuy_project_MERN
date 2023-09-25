@@ -3,9 +3,9 @@ const Cloudinary = require("cloudinary").v2
 exports.cloudinaryConnect = (() => {
     try {
         Cloudinary.config({
-            cloud_name: "dmgbqv6uz",
-            api_key: "395245916267259",
-            api_secret: "GdEJc1NtSGj-pKZnKZ42juA5CzY"
+            cloud_name: "",
+            api_key: "",
+            api_secret: ""
         })
         
         console.log("connection with cloudinary sucess")

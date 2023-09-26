@@ -141,7 +141,7 @@ function Home() {
         {/*  skills, timeline, learningLanguage */}
         <div className="mx-auto w-11/12 max-w-maxContent flex flex-col items-center justify-between  gap-7">
           {/*heading and subheading + button */}
-          <div className="flex  justify-around gap-5 mb-10 ">
+          <div className="flex lg:flex-row flex-col items-start justify-around gap-5 mb-10 ">
                 <div className="text-center text-4xl font-semibold  mt-4 w-full lg:w-[45%]">
                   <span>Get the skills you need for a <HighLightText text="job that is in demand." /></span>
                 </div>
@@ -151,7 +151,7 @@ function Home() {
                         With our online coding courses, you can learn at your own pace, from anywhere in the world, and get access to a wealth of resources, including hands-on projects, quizzes, and personalized feedback from instructors.
                       </div>
 
-                      <div className="my-8">
+                      <div className="my-8 flex justify-center  lg:justify-start">
                         <CTAButton active={true} linkto={"/login"}>Learn More</CTAButton>
                       </div>
                 </div>

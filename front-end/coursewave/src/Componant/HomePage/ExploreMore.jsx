@@ -38,11 +38,11 @@ const ExploreMore = () => {
       </div>
 
       {/* Tabs Section */}
-      <div className=" lg:flex gap-5 mt-5 mx-auto w-max bg-richblack-800 text-richblack-200 p-1 rounded-full font-medium drop-shadow-[0_1.5px_rgba(255,255,255,0.25)]">
+      <div className=" lg:flex gap-5 mt-5 lg:mb-0 mb-4 mx-auto w-max bg-richblack-800 text-richblack-200 p-1 rounded-sm lg:rounded-full font-medium drop-shadow-[0_1.5px_rgba(255,255,255,0.25)]">
         {tabsName.map((ele, index) => {
           return (
             <div
-              className={` text-[16px] flex flex-row items-center gap-2 ${
+              className={` text-[16px] flex flex-row justify-center items-center gap-2 ${
                 currentTab === ele
                   ? "bg-richblack-900 text-richblack-5 font-medium"
                   : "text-richblack-200"

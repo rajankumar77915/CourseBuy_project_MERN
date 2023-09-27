@@ -1,5 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit';
-import { AuthSlice } from './authSlice';
 
 const initialState={
     user:null
@@ -17,4 +16,4 @@ export const profileSlice= createSlice({
 });
 
 export const {Setuser}=profileSlice.actions;
-export default AuthSlice.reducer
+export default profileSlice.reducer

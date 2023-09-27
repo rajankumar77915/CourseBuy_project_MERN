@@ -7,7 +7,7 @@ const initialState = {
     loading:false
   }
 
-  export const AuthSlice=createSlice({
+  export const authSlice=createSlice({
     name:'auth',
     initialState:initialState,
     reducers:{
@@ -24,5 +24,5 @@ const initialState = {
   })
 
 
-  export const {Settoken,SetsignupData,Setloading}= AuthSlice.actions;
-  export default AuthSlice.reducer
+  export const {Settoken,SetsignupData,Setloading}= authSlice.actions;
+  export default authSlice.reducer

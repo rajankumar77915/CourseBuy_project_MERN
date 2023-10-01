@@ -1,7 +1,7 @@
 import signupImg from "../assets/signup.png";
-import { Template } from '../Componant/Template-LoginSignup';
+import { Template } from '../Componant/Auth/Template-LoginSignup';
 
-function Signup({ SetIsLoggedin }) {
+function Signup() {
   return (
 
 
@@ -11,7 +11,6 @@ function Signup({ SetIsLoggedin }) {
       desc2="Education to future-proof your career."
       image={signupImg}
       formType="login"
-      SetIsLoggedin={SetIsLoggedin}
     />
     // <div className="bg-black">
     //   <div className="mx-auto flex w-11/12 max-w-maxContent md:pt-14 md:flex-row">

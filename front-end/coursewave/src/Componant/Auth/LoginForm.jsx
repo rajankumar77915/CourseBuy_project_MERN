@@ -1,8 +1,12 @@
 import { useState } from "react";
-import {useNavigate} from 'react-router-dom'
+
 import {AiOutlineEye,AiOutlineEyeInvisible} from 'react-icons/ai'
-export function LoginForm({SetIsLoggedin}) {
-    const navigate = useNavigate();
+import {login} from '../../services/functions/login'
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+export function LoginForm() {
+    const navigate = useNavigate()
+    const dispatch = useDispatch();
     const [showPassword, SetshowPassword] = useState(false);
     const [formData, setFormData] = useState({
         email: '',
@@ -17,17 +21,10 @@ export function LoginForm({SetIsLoggedin}) {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        if (1) {
-            console.log(formData)
-            SetIsLoggedin(true);
-            navigate('/');
-
-        }
-        else {
-            console.log("password not matched")
-        }
+        console.log("login service calling")
+        dispatch(login(formData.email,formData.password,navigate))
         // Add your form submission logic here
     };
 

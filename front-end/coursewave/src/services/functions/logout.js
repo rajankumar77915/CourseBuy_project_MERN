@@ -1,6 +1,6 @@
 import toast from "react-hot-toast"
 import {Settoken } from "../../slics/authSlice"
-import {Settoken} from "../../slics/profileSlice"
+import {resetCart} from "../../slics/cartSlice"
   export function logout(navigate) {
     return (dispatch) => {
       dispatch(Settoken(null))

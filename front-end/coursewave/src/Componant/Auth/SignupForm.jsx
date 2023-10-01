@@ -1,20 +1,72 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-export function SignupForm({ SetIsLoggedin }) {
-    SetIsLoggedin(false);
-    const [userType, setUserType] = useState('student');
+
+import { sendOtp } from "../../services/functions/sendOtp"
+import { SetsignupData } from "../../slics/authSlice"
+import { ACCOUNT_TYPE } from "../../utils/constants"
+export function SignupForm() {
+    const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const [userType,SetuserType]=useState(ACCOUNT_TYPE.STUDENT)
+
+    // Handle Form Submission
+    const handleOnSubmit = (e) => {
+        e.preventDefault()
+    
+        if (formData.password !== formData.confirmPassword) {
+          toast.error("Passwords Do Not Match")
+          return
+        }
+        const signupData = {
+          ...formData,
+          userType,
+        }
+        console.log("sinupdata",signupData)
+    
+        // Setting signup data to state
+        // To be used after otp verification
+        dispatch(SetsignupData(signupData))
+        // Send OTP to user for verification
+        dispatch(sendOtp(formData.email, navigate))
+    
+        // Reset
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        })
+        SetuserType(ACCOUNT_TYPE.STUDENT)
+      }
+    
+
+
+
+
+
+
+
+
+
+
+   
+    // const [userType, SetuserType] = useState('student');
     // const [passwordMatch, SetpasswordMatch] = useState(false);
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
         email: '',
-        password1: '',
-        password2: '',
+        password: '',
+        confirmPassword: '',
     });
 
 
     const handleUserTypeChange = (userType) => {
-        setUserType(userType);
+        SetuserType(userType);
     };
 
     const handleInputChange = (e) => {
@@ -25,33 +77,34 @@ export function SignupForm({ SetIsLoggedin }) {
         }));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (1) {
-            const formDataWithUserType = {
-                ...formData,
-                userType: userType,
-            };
-            console.log(formDataWithUserType)
-        }
-        else {
-            console.log("password not matched")
-        }
-        // Add your form submission logic here
-    };
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     if (formData.password===formData.confirmPassword) {
+    //         const formDataWithUserType = {
+    //             ...formData,
+    //             userType: userType,
+    //         };
+    //         dispatch( signUp(formData,navigate) );
+    //         console.log(formDataWithUserType)
+    //     }
+    //     else {
+    //         toast("password not matched");
+    //     }
+    //     // Add your form submission logic here
+    // };
 
     // useEffect(() => {
-    //     if (formData.password1 === formData.password2) {
+    //     if (formData.password === formData.confirmPassword) {
     //         SetpasswordMatch(true);
     //     }
     //     else {
     //         SetpasswordMatch(false);
     //     }
-    //     console.log(formData.password1, formData.password2)
+    //     console.log(formData.password, formData.confirmPassword)
     // }, [formData])
 
     return (
-        <form className="mt-6 flex w-full flex-col gap-y-4 text-richblack-5" onSubmit={handleSubmit}>
+        <form className="mt-6 flex w-full flex-col gap-y-4 text-richblack-5" onSubmit={handleOnSubmit}>
             <div className="flex bg-richblack-800 p-1  rounded-full max-w-max shadow-inset space-x-1 ">
                 <div
                     name="student"
@@ -116,10 +169,10 @@ export function SignupForm({ SetIsLoggedin }) {
                         style={{ color: 'white', borderBottom: '1px white solid' }}
                         required
                         type="password"
-                        name="password1"
+                        name="password"
                         placeholder="Enter Password"
                         className="bg-richblack-700 h-12 pl-2 rounded-lg w-full"
-                        value={formData.password1}
+                        value={formData.password}
                         onChange={handleInputChange}
                     />
                 </label>
@@ -129,10 +182,10 @@ export function SignupForm({ SetIsLoggedin }) {
                         style={{ color: 'white', borderBottom: '1px white solid' }}
                         required
                         type="password"
-                        name="password2"
+                        name="confirmPassword"
                         placeholder="Confirm Password"
                         className="bg-richblack-700 h-12 pl-2 rounded-lg w-full"
-                        value={formData.password2}
+                        value={formData.confirmPassword}
                         onChange={handleInputChange}
                     />
                 </label>

@@ -1,29 +1,19 @@
 import {endpoints} from '../apis'
-import { Setloading, Settoken } from "../../slics/authSlice"
+import { Setloading} from "../../slics/authSlice"
 import toast from 'react-hot-toast'
+import { apiConnector } from '../apiconnector'
+
 
 export function signUp(
-    accountType,
-    firstName,
-    lastName,
-    email,
-    password,
-    confirmPassword,
-    otp,
+    formData,
     navigate
   ) {
     return async (dispatch) => {
       const toastId = toast.loading("Loading...")
       dispatch(Setloading(true))
       try {
-        const response = await apiConnector("POST", SIGNUP_API, {
-          accountType,
-          firstName,
-          lastName,
-          email,
-          password,
-          confirmPassword,
-          otp,
+        const response = await apiConnector("POST", endpoints.SIGNUP_API, {
+          formData
         })
   
         console.log("SIGNUP API RESPONSE............", response)

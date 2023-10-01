@@ -22,7 +22,9 @@ exports.signup = async (req, res) => {
 			accountType,
 			contactNumber,
 			otp,
-		} = req.body;
+		} = req.body.formData;
+
+		console.log("all field............. ",req.body.formData)
 		// Check if All Details are there or not
 		if (
 			!firstName ||
@@ -57,7 +59,8 @@ exports.signup = async (req, res) => {
 
 		// Find the most recent OTP for the email
 		const response = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1);
-		console.log(response);
+		console.log("otp response:",response);
+		console.log("length is:",response.length)
 		if (response.length === 0) {
 			// OTP not found for the email
 			return res.status(400).json({
@@ -218,15 +221,19 @@ exports.sendotp = async (req, res) => {
 		// const otpBody = await OTP.create(otpPayload);
 		const otpBody = new OTP(otpPayload);
 		await otpBody.save();
-
-		console.log("OTP Body", otpBody);
+		
+		// result = await OTP.findOne({ otp: otp });
+		// if(result)
+		// console.log("OTP Body", otpBody);
+		// else
+		// console.log("ffffffffffffaaaaaaaaaaaaaaaaiiiiiiiiiiiiiiiiiiillllllllllllllll")
 		res.status(200).json({
 			success: true,
 			message: `OTP Sent Successfully`,
 			otp,
 		});
 	} catch (error) {
-		console.log(error.message);
+		console.log("error at send otp function: " ,error.message);
 		return res.status(500).json({ success: false, error: error.message });
 	}
 };

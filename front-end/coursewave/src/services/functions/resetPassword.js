@@ -4,12 +4,12 @@ import { apiConnector } from "../apiconnector"
 import { Setloading } from "../../slics/authSlice"
 export function getPasswordResetToken(email, setEmailSent) {
     const {
-        RESETPASSTOKEN_API,
-        RESETPASSWORD_API
+        RESETPASSTOKEN_API
     } = endpoints
     return async (dispatch) => {
         const toastId = toast.loading("Loading...")
         dispatch(Setloading(true))
+        console.log("---------------",email)
         try {
             const response = await apiConnector("POST", RESETPASSTOKEN_API, {
                 email,
@@ -33,6 +33,9 @@ export function getPasswordResetToken(email, setEmailSent) {
 }
 
 export function resetPassword(password, confirmPassword, token, navigate) {
+    const {
+        RESETPASSWORD_API
+    } = endpoints
     return async (dispatch) => {
         const toastId = toast.loading("Loading...")
         dispatch(Setloading(true))

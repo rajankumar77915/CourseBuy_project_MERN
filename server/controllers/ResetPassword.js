@@ -14,50 +14,51 @@ exports.resetPasswordToken = async (req, res) => {
 			});
 		}
 		const token = crypto.randomBytes(20).toString("hex");
-
+		
 		const updatedDetails = await User.findOneAndUpdate(
 			{ email: email },
 			{
-			  $set: {
-				token: token,
+				$set: {
+					token: token,
 				resetPasswordExpires: Date.now() + 300000,//5min
 			  }
 			},
 			{ new: true }
-		  );
-		console.log("DETAILS", updatedDetails);
+			);
+			console.log("DETAILS", updatedDetails);
 			console.log("------------------------")
-		const url = `http://localhost:3000/update-password/${token}`;
-
-		await mailSender(
-			email,
-			"Password Reset",
-			`Your Link for email verification is ${url}. Please click this url to reset your password.`
-		);
-
-		res.json({
-			success: true,
-			message:
-				"Email Sent Successfully, Please Check Your Email to Continue Further",
-		});
-	} catch (error) {
-		return res.json({
-			error: error.message,
-			success: false,
-			message: `Some Error in Sending the Reset Message`,
-		});
-	}
-};
-
-exports.resetPassword = async (req, res) => {
-	try {
-		const { password, confirmPassword, token } = req.body;
-
-		if (confirmPassword !== password) {
-			return res.json({
-				success: false,
-				message: "Password and Confirm Password Does not Match",
-			});
+			const url = `http://localhost:3000/update-password/${token}`;
+			
+			await mailSender(
+				email,
+				"Password Reset",
+				`Your Link for email verification is ${url}. Please click this url to reset your password.`
+				);
+				
+				res.status(200).json({
+					success: true,
+					message:
+					"Email Sent Successfully, Please Check Your Email to Continue Further",
+				});
+			} catch (error) {
+				return res.json({
+					error: error.message,
+					success: false,
+					message: `Some Error in Sending the Reset Message`,
+				});
+			}
+		};
+		
+		exports.resetPassword = async (req, res) => {
+			console.log("---------------------------")
+			try {
+				const { password, confirmPassword, token } = req.body;
+				
+				if (confirmPassword !== password) {
+					return res.json({
+						success: false,
+						message: "Password and Confirm Password Does not Match",
+					});
 		}
 		const userDetails = await User.findOne({ token: token });
 		console.log(userDetails)
@@ -78,16 +79,16 @@ exports.resetPassword = async (req, res) => {
 			{ token: token },
 			{ password: encryptedPassword },
 			{ new: true }
-		);
-		res.json({
-			success: true,
-			message: `Password Reset Successful`,
-		});
-	} catch (error) {
-		return res.json({
-			error: error.message,
-			success: false,
-			message: `Some Error in Updating the Password`,
-		});
-	}
-};
+			);
+			res.json({
+				success: true,
+				message: `Password Reset Successful`,
+			});
+		} catch (error) {
+			return res.json({
+				error: error.message,
+				success: false,
+				message: `Some Error in Updating the Password`,
+			});
+		}
+	};

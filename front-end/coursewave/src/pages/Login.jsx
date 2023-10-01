@@ -1,9 +1,9 @@
 // import Template from "../components/Auth/Template";
 import loginImg from "../assets/login.png"
 
-import { Template } from "../Componant/Template-LoginSignup";
+import { Template } from "../Componant/Auth/Template-LoginSignup";
 
-function Login({ SetIsLoggedin }) {
+function Login() {
 
   return (
     <Template
@@ -12,7 +12,7 @@ function Login({ SetIsLoggedin }) {
       desc2="Education to future-proof your career."
       image={loginImg}
       formtype="login"
-      SetIsLoggedin={SetIsLoggedin}
+      
     />
       );
 }

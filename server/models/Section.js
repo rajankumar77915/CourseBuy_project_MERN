@@ -4,9 +4,9 @@ const SectionSchema = new mongoose.Schema({
     sectionName: {
         type: String
     },
-    subsection: [{
+    SubSection: [{
         type:mongoose.Types.ObjectId,
-        ref:"Subsection"
+        ref:"SubSection"
     }]
 })
 

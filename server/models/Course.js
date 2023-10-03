@@ -1,10 +1,11 @@
 const { default: mongoose } = require("mongoose");
 
 const CourseSchema=new mongoose.Schema({
-    title:{
+    courseName: { type: String },
+    courseTitle:{
         type:String
     },
-    decribtion:{
+    courseDescription:{
         type:String
     },
     instructor:{
@@ -23,9 +24,9 @@ const CourseSchema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId ,
         ref:"RatingAndReview"
     }],
-    price:{
-        typr:Number
-    },
+    price: {
+		type: Number,
+	},
     thumbnail:{
         type:String
     },
@@ -49,6 +50,10 @@ const CourseSchema=new mongoose.Schema({
 	status: {
 		type: String,
 		enum: ["Draft", "Published"],
+	},
+    createdAt: {
+		type:Date,
+		default:Date.now
 	},
 
 })

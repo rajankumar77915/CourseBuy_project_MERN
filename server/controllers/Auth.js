@@ -22,7 +22,7 @@ exports.signup = async (req, res) => {
 			accountType,
 			contactNumber,
 			otp,
-		} = req.body.formData;
+		} = req.body;
 
 		console.log("all field............. ",req.body.formData)
 		// Check if All Details are there or not

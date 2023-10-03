@@ -10,7 +10,7 @@ const CourseProgressSchema = new mongoose.Schema({
         [
             {
                 type:mongoose.Schema.ObjectId,
-                ref:"Subsection"
+                ref:"SubSection"
             }
         ]
 })

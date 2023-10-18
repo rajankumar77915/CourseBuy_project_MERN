@@ -13,7 +13,7 @@ const {
   getInstructorCourses,
   deleteCourse,
   getFullCourseDetails,
-  getFullDetailsOfCourse
+  // getFullDetailsOfCourse
 } = require("../controllers/Course")
 
 
@@ -77,6 +77,7 @@ router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
 router.delete("/deleteCourse", deleteCourse)
 // Get Details for a Specific Courses
 router.post("/getFullCourseDetails", auth, getFullCourseDetails)
+// router.post("/getFullDetailsOfCourse", auth, getFullDetailsOfCourse)
 
 // ********************************************************************************************************
 //                                      Category routes (Only by Admin)

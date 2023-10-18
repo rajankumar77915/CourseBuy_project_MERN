@@ -19,34 +19,33 @@ exports.signup = async (req, res) => {
 			email,
 			password,
 			confirmPassword,
-			accountType,
+			
 			contactNumber,
 			otp,
-		} = req.body;
-
-		console.log("all field............. ",req.body.formData)
+		} = req.body.formData;
+		const accountType=req.body.formData.userType;
 		// Check if All Details are there or not
 		if (
 			!firstName ||
 			!lastName ||
 			!email ||
 			!password ||
-			!confirmPassword ||
 			!otp
-		) {
-			return res.status(403).send({
-				success: false,
-				message: "All Fields are required",
-			});
-		}
+			) {
+				return res.status(403).send({
+					success: false,
+					message: "All Fields are required",
+				});
+			}
+			console.log("all field............. ",req.body.formData)
 		// Check if password and confirm password match
-		if (password !== confirmPassword) {
-			return res.status(400).json({
-				success: false,
-				message:
-					"Password and Confirm Password do not match. Please try again.",
-			});
-		}
+		// if (password !== confirmPassword) {
+		// 	return res.status(400).json({
+		// 		success: false,
+		// 		message:
+		// 			"Password and Confirm Password do not match. Please try again.",
+		// 	});
+		// }
 
 		// Check if user already exists
 		const existingUser = await User.findOne({ email });
@@ -156,6 +155,7 @@ exports.login = async (req, res) => {
 
 			// Save token to user document in database
 			user.token = token;
+			await user.save()
 			user.password = undefined;
 			// Set cookie for token and return success response
 			const options = {

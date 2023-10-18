@@ -31,7 +31,8 @@ export function login(email, password,navigate) {
             ? response.data.user.image
             : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.user.firstName} ${response.data.user.lastName}`
             dispatch(Setuser({ ...response.data.user, image: userImage }))
-            
+    
+            localStorage.setItem("token",(response.data.token))
             localStorage.setItem("token", JSON.stringify(response.data.token))
             navigate("/dashboard/my-profile")
         } catch (error) {

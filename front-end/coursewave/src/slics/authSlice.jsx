@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
-    token: localStorage.getItem('token') ?JSON.stringify(localStorage.getItem('token')):null,
+    token: localStorage.getItem("token") ?(localStorage.getItem("token")).replace(/"/g,""):null,
+    // token: localStorage.getItem("token") ?JSON.stringify(localStorage.getItem("token")):null,
     signupData:null,
     loading:false
   }
@@ -13,6 +14,7 @@ const initialState = {
     reducers:{
         Settoken(state,value){
              state.token=value.payload;
+             console.log("loding....",state.token)
         },
         SetsignupData(state,value){
             state.signupData=value.payload;

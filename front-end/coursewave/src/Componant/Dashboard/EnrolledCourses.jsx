@@ -23,6 +23,10 @@ export default function EnrolledCourses() {
   useEffect(() => {
     getEnrolledCourses();
   }, [])
+  useEffect(()=>{
+    console.log("en:",enrolledCourses)
+
+  },[enrolledCourses])
 
   return (
     <>
@@ -55,8 +59,9 @@ export default function EnrolledCourses() {
               <div
                 className="flex w-[45%] cursor-pointer items-center gap-4 px-5 py-3"
                 onClick={() => {
+                  console.log("clicke :",course?.courseContent[0].SubSection[0])
                   navigate(
-                    `/view-course/${course?._id}/section/${course.courseContent?.[0]?._id}/sub-section/${course.courseContent?.[0]?.subSection?.[0]?._id}`
+                    `/view-course/${course?._id}/section/${course?.courseContent?.[0]?._id}/sub-section/${course.courseContent?.[0]?.SubSection[0]}`
                   )
                 }}
               >
@@ -68,9 +73,9 @@ export default function EnrolledCourses() {
                 <div className="flex max-w-xs flex-col gap-2">
                   <p className="font-semibold">{course.courseName}</p>
                   <p className="text-xs text-richblack-300">
-                    {course.courseDescription.length > 50
-                      ? `${course.courseDescription.slice(0, 50)}...`
-                      : course.courseDescription}
+                    {course?.courseDescription?.length > 50
+                      ? `${course?.courseDescription.slice(0, 50)}...`
+                      : course?.courseDescription}
                   </p>
                 </div>
               </div>

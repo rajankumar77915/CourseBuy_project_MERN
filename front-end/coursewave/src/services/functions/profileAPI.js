@@ -9,6 +9,7 @@ const { GET_USER_DETAILS_API, GET_USER_ENROLLED_COURSES_API , GET_INSTRUCTOR_DAT
 
 export function getUserDetails(token, navigate) {
   return async (dispatch) => {
+    
     const toastId = toast.loading("Loading...")
     dispatch(Setloading(true))
     try {
@@ -44,7 +45,7 @@ export async function getUserEnrolledCourses(token) {
       GET_USER_ENROLLED_COURSES_API,
       null,
       {
-        Authorisation: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       }
     )
     console.log("AFTER Calling BACKEND API FOR ENROLLED COURSES");

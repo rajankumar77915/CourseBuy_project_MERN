@@ -109,7 +109,7 @@ function Home() {
               }
             }
 
-            codeblock={`<<!DOCTYPE html>\n<html>\nhead><title>Example</title><link rel="stylesheet" href="styles.css">\n</head>\n`}
+            codeblock={`Ashish Ashish mahan coder !!`}
             codeColor={"text-yellow-25"}
           />
         </div>

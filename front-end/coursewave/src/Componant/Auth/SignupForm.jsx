@@ -108,15 +108,15 @@ export function SignupForm() {
             <div className="flex bg-richblack-800 p-1  rounded-full max-w-max shadow-inset space-x-1 ">
                 <div
                     name="student"
-                    onClick={() => handleUserTypeChange('student')}
-                    className={` ${userType === 'student' ? 'bg-richblack-900 text-richblack-5' : 'bg-transparent  text-richblack-200'}  py-2 px-5 rounded-full transition-all duration-300 cursor-pointer`}
+                    onClick={() => handleUserTypeChange('Student')}
+                    className={` ${userType === 'Student' ? 'bg-richblack-900 text-richblack-5' : 'bg-transparent  text-richblack-200'}  py-2 px-5 rounded-full transition-all duration-300 cursor-pointer`}
                 >
                     Student
                 </div>
                 <div
                     name="instructor"
-                    onClick={() => handleUserTypeChange('instructor')}
-                    className={` ${userType === 'instructor' ? 'bg-richblack-900 text-richblack-5' : 'bg-transparent  text-richblack-200'}  py-2 px-5 rounded-full transition-all duration-300 cursor-pointer`}
+                    onClick={() => handleUserTypeChange('Instructor')}
+                    className={` ${userType === 'Instructor' ? 'bg-richblack-900 text-richblack-5' : 'bg-transparent  text-richblack-200'}  py-2 px-5 rounded-full transition-all duration-300 cursor-pointer`}
                 >
                     Instructor
                 </div>

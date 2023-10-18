@@ -12,11 +12,11 @@ import ProfileDropdown from './ProfileDropDown';
 // for catalog
 const subLinks = [
   {
-    title: "python",
-    link: "/catalog/python"
+    title: "devops",
+    link: "/catalog/devops"
   },
   {
-    title: "web dev",
+    title: "web-dev",
     link: "/catalog/web-development"
   },
 ];

@@ -11,9 +11,11 @@ exports.createRating = async (req, res) => {
         //fetchdata from req body
         const {rating, review, courseId} = req.body;
         //check if user is enrolled or not
+
+        console.log("createRating:",userId)
         const courseDetails = await Course.findOne(
                                     {_id:courseId,
-                                    studentsEnrolled: {$elemMatch: {$eq: userId} },
+                                        studentEnrolled: {$elemMatch: {$eq: userId} },
                                 });
 
         if(!courseDetails) {
@@ -44,7 +46,7 @@ exports.createRating = async (req, res) => {
         const updatedCourseDetails = await Course.findByIdAndUpdate({_id:courseId},
                                     {
                                         $push: {
-                                            ratingAndReviews: ratingReview._id,
+                                            ratingAndReview: ratingReview._id,
                                         }
                                     },
                                     {new: true});

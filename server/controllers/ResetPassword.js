@@ -26,7 +26,6 @@ exports.resetPasswordToken = async (req, res) => {
 			{ new: true }
 			);
 			console.log("DETAILS", updatedDetails);
-			console.log("------------------------")
 			const url = `http://localhost:3000/update-password/${token}`;
 			
 			await mailSender(
@@ -50,7 +49,6 @@ exports.resetPasswordToken = async (req, res) => {
 		};
 		
 		exports.resetPassword = async (req, res) => {
-			console.log("---------------------------")
 			try {
 				const { password, confirmPassword, token } = req.body;
 				

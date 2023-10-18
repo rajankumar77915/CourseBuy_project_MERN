@@ -2,6 +2,8 @@ const Course = require("../models/Course");
 const Category = require("../models/Category");
 const User = require("../models/User");
 const { uploadImageCloudinary } = require("../utils/uploadImageCloudinary");
+const CourseProgress = require("../models/CourseProgress");
+const { convertSecondsToDuration } = require("../utils/secToDuration")
 // Function to create a new course
 exports.createCourse = async (req, res) => {
 	try {
@@ -134,7 +136,7 @@ exports.getAllCourses = async (req, res) => {
 				thumbnail: true,
 				instructor: true,
 				ratingAndReview: true,
-				studentsEnroled: true,
+				studentEnrolled: true,
 			}
 		)
 			.populate("instructor")
@@ -159,6 +161,7 @@ exports.getCourseDetails = async (req, res) => {
             //get id
             const {courseId} = req.body;
             //find course details
+			console.log("wwwwwww")
             const courseDetails = await Course.find(
                                         {_id:courseId})
                                         .populate(
@@ -174,7 +177,7 @@ exports.getCourseDetails = async (req, res) => {
                                         .populate({
                                             path:"courseContent",
                                             populate:{
-                                                path:"subSection",
+                                                path:"SubSection",
                                             },
                                         })
                                         .exec();
@@ -221,7 +224,7 @@ exports.editCourse = async (req, res) => {
 	  if (req.files) {
 		console.log("thumbnail update")
 		const thumbnail = req.files.thumbnailImage
-		const thumbnailImage = await uploadImageToCloudinary(
+		const thumbnailImage = await uploadImageCloudinary(
 		  thumbnail,
 		  process.env.FOLDER_NAME
 		)
@@ -359,67 +362,67 @@ exports.getAllCourses = async (req, res) => {
   //     })
   //   }
   // }
-  exports.getCourseDetails = async (req, res) => {
-	try {
-	  const { courseId } = req.body
-	  const courseDetails = await Course.findOne({
-		_id: courseId,
-	  })
-		.populate({
-		  path: "instructor",
-		  populate: {
-			path: "additionalDetails",
-		  },
-		})
-		.populate("category")
-		.populate("ratingAndReviews")
-		.populate({
-		  path: "courseContent",
-		  populate: {
-			path: "subSection",
-			select: "-videoUrl",
-		  },
-		})
-		.exec()
+//   exports.getCourseDetails = async (req, res) => {
+// 	try {
+// 	  const { courseId } = req.body
+// 	  const courseDetails = await Course.findOne({
+// 		_id: courseId,
+// 	  })
+// 		.populate({
+// 		  path: "instructor",
+// 		  populate: {
+// 			path: "additionalDetails",
+// 		  },
+// 		})
+// 		.populate("category")
+// 		.populate("ratingAndReviews")
+// 		.populate({
+// 		  path: "courseContent",
+// 		  populate: {
+// 			path: "subSection",
+// 			select: "-videoUrl",
+// 		  },
+// 		})
+// 		.exec()
   
-	  if (!courseDetails) {
-		return res.status(400).json({
-		  success: false,
-		  message: `Could not find course with id: ${courseId}`,
-		})
-	  }
+// 	  if (!courseDetails) {
+// 		return res.status(400).json({
+// 		  success: false,
+// 		  message: `Could not find course with id: ${courseId}`,
+// 		})
+// 	  }
   
-	  // if (courseDetails.status === "Draft") {
-	  //   return res.status(403).json({
-	  //     success: false,
-	  //     message: `Accessing a draft course is forbidden`,
-	  //   });
-	  // }
+// 	  // if (courseDetails.status === "Draft") {
+// 	  //   return res.status(403).json({
+// 	  //     success: false,
+// 	  //     message: `Accessing a draft course is forbidden`,
+// 	  //   });
+// 	  // }
   
-	  let totalDurationInSeconds = 0
-	  courseDetails.courseContent.forEach((content) => {
-		content.subSection.forEach((subSection) => {
-		  const timeDurationInSeconds = parseInt(subSection.timeDuration)
-		  totalDurationInSeconds += timeDurationInSeconds
-		})
-	  })
+// 	  let totalDurationInSeconds = 0
+// 	  courseDetails.courseContent.forEach((content) => {
+// 		content.subSection.forEach((subSection) => {
+// 		  const timeDurationInSeconds = parseInt(subSection.timeDuration)
+// 		  totalDurationInSeconds += timeDurationInSeconds
+// 		})
+// 	  })
   
-	  const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
+// 	  const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
   
-	  return res.status(200).json({
-		success: true,
-		data: {
-		  courseDetails,
-		  totalDuration,
-		},
-	  })
-	} catch (error) {
-	  return res.status(500).json({
-		success: false,
-		message: error.message,
-	  })
-	}
-  }
+// 	  return res.status(200).json({
+// 		success: true,
+// 		data: {
+// 		  courseDetails,
+// 		  totalDuration,
+// 		},
+// 	  })
+// 	} catch (error) {
+// 	  return res.status(500).json({
+// 		success: false,
+// 		message: error.message,
+// 	  })
+// 	}
+//   }
   exports.getFullCourseDetails = async (req, res) => {
 	try {
 	  const { courseId } = req.body
@@ -438,10 +441,11 @@ exports.getAllCourses = async (req, res) => {
 		.populate({
 		  path: "courseContent",
 		  populate: {
-			path: "ubSection",
+			path: "SubSection",
 		  },
 		})
 		.exec()
+		// console.log(userId)
   
 	  let courseProgressCount = await CourseProgress.findOne({
 		courseID: courseId,
@@ -466,7 +470,7 @@ exports.getAllCourses = async (req, res) => {
   
 	  let totalDurationInSeconds = 0
 	  courseDetails.courseContent.forEach((content) => {
-		content.subSection.forEach((subSection) => {
+		content.SubSection.forEach((subSection) => {
 		  const timeDurationInSeconds = parseInt(subSection.timeDuration)
 		  totalDurationInSeconds += timeDurationInSeconds
 		})
@@ -529,7 +533,7 @@ exports.getAllCourses = async (req, res) => {
 	  }
   
 	  // Unenroll students from the course
-	  const studentsEnrolled = course.studentsEnroled
+	  const studentsEnrolled = course.studentEnrolled
 	  for (const studentId of studentsEnrolled) {
 		await User.findByIdAndUpdate(studentId, {
 		  $pull: { courses: courseId },

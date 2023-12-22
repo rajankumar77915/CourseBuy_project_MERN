@@ -55,9 +55,9 @@ exports.createSubSection = async (req, res) => {
   exports.updateSubSection = async (req, res) => {
     try {
       const { sectionId,subSectionId, title, description } = req.body
-      const SubSection = await SubSection.findById(subSectionId)
+      const subSection = await SubSection.findById(subSectionId)
   
-      if (!SubSection) {
+      if (!subSection) {
         return res.status(404).json({
           success: false,
           message: "SubSection not found",
@@ -65,11 +65,11 @@ exports.createSubSection = async (req, res) => {
       }
   
       if (title !== undefined) {
-        SubSection.title = title
+        subSection.title = title
       }
   
       if (description !== undefined) {
-        SubSection.description = description
+        subSection.description = description
       }
       if (req.files && req.files.video !== undefined) {
         const video = req.files.video
@@ -77,11 +77,11 @@ exports.createSubSection = async (req, res) => {
           video,
           process.env.FOLDER_NAME
         )
-        SubSection.videoUrl = uploadDetails.secure_url
-        SubSection.timeDuration = `${uploadDetails.duration}`
+        subSection.videoUrl = uploadDetails.secure_url
+        subSection.timeDuration = `${uploadDetails.duration}`
       }
   
-      await SubSection.save()
+      await subSection.save()
   
       const updatedSection = await Section.findById(sectionId).populate("SubSection")
 
@@ -111,9 +111,9 @@ exports.createSubSection = async (req, res) => {
           },
         }
       )
-      const SubSection = await SubSection.findByIdAndDelete({ _id: subSectionId })
+      const subSection = await SubSection.findByIdAndDelete({ _id: subSectionId })
   
-      if (!SubSection) {
+      if (!subSection) {
         return res
           .status(404)
           .json({ success: false, message: "SubSection not found" })

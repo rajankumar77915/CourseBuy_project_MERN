@@ -43,12 +43,12 @@ app.listen(PORT,()=>{
     console.log(`at ${PORT}`);
 })
 
-// app.get("/",(req,res)=>{
-//     return res.json({
-//         sucess:true,
-//     message:"your server is running up and running..."
-//     })
-// })
+app.get("/",(req,res)=>{
+    return res.json({
+        sucess:true,
+    message:"your server is running up and running..."
+    })
+})
 
   
 

@@ -101,7 +101,7 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
                     {course.SubSection.map((topic, i) => (
                       <div
                         className={`flex gap-3  px-5 py-2 ${
-                          videoBarActive === topic._id
+                          videoBarActive === topic?._id
                             ? "bg-yellow-200 font-semibold text-richblack-800"
                             : "hover:bg-richblack-900"
                         } `}
@@ -110,7 +110,7 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
                           navigate(
                             `/view-course/${courseEntireData?._id}/section/${course?._id}/sub-section/${topic?._id}`
                           )
-                          setVideoBarActive(topic._id)
+                          setVideoBarActive(topic?._id)
                         }}
                       >
                         <input

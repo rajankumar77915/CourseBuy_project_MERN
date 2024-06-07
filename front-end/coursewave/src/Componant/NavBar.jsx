@@ -16,8 +16,8 @@ const subLinks = [
     link: "/catalog/devops"
   },
   {
-    title: "web-dev",
-    link: "/catalog/web-development"
+    title: "web-devlopment",
+    link: "/catalog/web-devlopment"
   },
 ];
 

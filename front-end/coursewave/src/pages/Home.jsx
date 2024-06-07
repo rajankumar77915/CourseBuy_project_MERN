@@ -109,7 +109,7 @@ function Home() {
               }
             }
 
-            codeblock={`Ashish Ashish mahan coder !!`}
+            codeblock={`#Founder rajan!!\n do Want to improve problem sloving skill OR Learn Advance Concepts In Modern IT World\n\n#include<stdio.h>\nint main(){\nprintf("Hello World!!");\n return 0;\n}`}
             codeColor={"text-yellow-25"}
           />
         </div>
